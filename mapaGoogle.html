@@ -45,6 +45,7 @@
 		map = new OpenLayers.Map('map',opciones);
 		// Creamos el Layer que contendra al mapa de Google
 
+		//FONDOS DE MAPA
 		osm = new OpenLayers.Layer.OSM("OpenStreetMap");
 		mapGoogleS = new OpenLayers.Layer.Google("Mapa Satelital",{type:google.maps.MapTypeId.SATELLITE});
 		mapGoogleH = new OpenLayers.Layer.Google("Mapa Hibrido",{type:google.maps.MapTypeId.HYBRID});
@@ -52,6 +53,20 @@
 		
 		map.addLayers([osm, mapGoogleS, mapGoogleH, mapGoogleR]);
 		
+		// CAPAS O LAYERS 
+		var layerWMS =  new OpenLayers.Layer.WMS(
+				"Departamentos",
+				"http://geo.gob.bo/geoserver/wms",
+				{
+					layers: 'fondos:departamento1',
+					transparent:true
+				},
+				{
+					'displayInLayerSwitcher': true
+				}
+			);
+		map.addLayer(layerWMS);
+
 
 		var region = new OpenLayers.Bounds(-8882307.87997250073, -2714472.11172039993, -5319651.24140710011, -1132560.70255260007);
 
