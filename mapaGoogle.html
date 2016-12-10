@@ -17,7 +17,7 @@
 		}
 		#map{
 			height: 700px;
-			width: 700px;
+			width: 900px;
 			/*z-index: 99;*/
 		}
 	</style>
@@ -72,6 +72,21 @@
 			);
 		layerWMS.setVisibility(false); // Seteamos la visibilidad del mapa
 		map.addLayer(layerWMS);
+		// ----------LAYER DESDE GEOSERVER LOCAL
+		var layerWmsLocal =  new OpenLayers.Layer.WMS(
+				"Sistemas eléctricos",
+				"http:/\/\192.168.1.150:7070/geoserver/wms",
+				{
+					layers: 'we_daniel:PrincipalesSistemasElectricos',
+					transparent: true
+				},
+				{
+					'displayInLayerSwitcher': true
+				}
+			);
+		layerWmsLocal.setVisibility(false); // Seteamos la visibilidad del mapa
+		map.addLayer(layerWmsLocal);
+
 
 
 		var region = new OpenLayers.Bounds(-8882307.87997250073, -2714472.11172039993, -5319651.24140710011, -1132560.70255260007);
