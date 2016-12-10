@@ -26,6 +26,7 @@
 		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 0;
 		OpenLayers.DOTS_PER_INCH = 90.71428571428572;
 		OpenLayers.Util.onImageLoadErrorColor= 'transparent';
+		OpenLayers.ProxyHost = '/cgi-bin/proxy.cgi?url=';
 
 		var map, mapGoogle, opciones, proyeccion, resolucion,zoom, controlTouch, controlNavegacion,controlZoom;
 		var controlLayers, osm;
@@ -74,8 +75,8 @@
 		map.addLayer(layerWMS);
 		// ----------LAYER DESDE GEOSERVER LOCAL
 		var layerWmsLocal =  new OpenLayers.Layer.WMS(
-				"Sistemas eléctricos",
-				"http:/\/\192.168.1.150:7070/geoserver/wms",
+				"Sistemas electricos",
+				"http://192.168.1.150:7070/geoserver/wms",
 				{
 					layers: 'we_daniel:PrincipalesSistemasElectricos',
 					transparent: true
