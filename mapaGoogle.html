@@ -20,6 +20,12 @@
 			width: 900px;
 			/*z-index: 99;*/
 		}
+		#tools{
+			display: inline-block;
+			width: 100%;
+			height: 50px;
+			background-color: darkblue;
+		}
 	</style>
 	<script type="text/javascript">
 	var inicio = function(){	
@@ -88,7 +94,48 @@
 		layerWmsLocal.setVisibility(false); // Seteamos la visibilidad del mapa
 		map.addLayer(layerWmsLocal);
 
+		// --- CONTROL PARA MOSTRAR METADATA DE UN  LAYER
+		var getInfo = new OpenLayers.Control.WMSGetFeatureInfo(
+				{
+					id: 'infoControl',
+					title: 'Información',
+					queryVisible: true,
+					eventListeners: {
+						getfeatureinfo: function (event){
+							var popup = new OpenLayers.Popup.FramedCloud(
+								'Popup',
+								map.getLonLatFromPixel(event.xy),
+								null,
+								event.text,
+								null,
+								true
+								)	
+						}
+					}
+				}
+			);
+		map.addControl(getInfo);
 
+		var btnInfo = new OpenLayers.Control.Button(
+				{
+					displayClass: 'info',
+					type: OpenLayers.Control.TYPE_TOGGLE,
+					title: 'Información',
+					eventListeners:
+						{
+							'activate' : function (){
+								getInfo.activate();	
+							},
+							'deactivate' : function(){
+								getInfo.deactivate();
+							}
+						}
+				}
+			);
+		var tools = document.getElementById('tools');
+		var panel = new OpenLayers.Control.Panel({div:tools});
+		panel.addControls([btnInfo]);
+		map.addControl(panel);
 
 		var region = new OpenLayers.Bounds(-8882307.87997250073, -2714472.11172039993, -5319651.24140710011, -1132560.70255260007);
 
@@ -104,6 +151,7 @@
 	</script>
 </head>
 <body>
+<div id="tools"></div>
 <div id="map"></div>
 
 </body>
